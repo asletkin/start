@@ -89,7 +89,7 @@
 //    } else {
 //        console.log('Это будущее')
 //    }
-//}
+// }
 
 // logInfoAbout('Alex', '2079')
 
@@ -110,11 +110,11 @@
 
 // for (let car of cars) {
 //    console.log(car)
-//}
+// }
 
 // 11 Объекты
 
-//const person = {
+// const person = {
 //    firstName: 'Alex',
 //    lastName: 'Slet',
 //    year: 1979,
@@ -123,13 +123,13 @@
 //    greet: function () {
 //        console.log('greet')
 //    }
-//}
+// }
 
-//console.log(person.firstName)
-//console.log(person['lastName'])
-//const key = 'year'
-//console.log(person[key])
-//person.hasWife = true
-//person.isProgrammer = true
-//console.log(person)
-//person.greet()
+// console.log(person.firstName)
+// console.log(person['lastName'])
+// const key = 'year'
+// console.log(person[key])
+// person.hasWife = true
+// person.isProgrammer = true
+// console.log(person)
+// person.greet()
