@@ -29,10 +29,28 @@
 // console.log(string.trim()) // убирает пробелы
 // console.log(string.trimLeft()) // убирает пробелы с лева
 // console.log(string.trimRight()) // убирает пробелы с права
+//
+// function logPerson(s, name, age) {
+//     if (age < 0) {
+//         age ='Еще не родился'
+//     }
+//     return `${s[0]}${name}${s[1]}${age}${s[2]}`
+// }
+//
+// const personName2 = 'Максим'
+// const personName = 'Александр'
+// const personAge = 40
+// const personAge2 = -2
+//
+// const output = logPerson`Имя: ${personName}, Возраст: ${personAge}!`
+// const output2 = logPerson`Имя: ${personName2}, Возраст: ${personAge2}!`
+//
+// console.log(output)
+// console.log(output2)
 
-function logPerson(s, name, age) {
-    return 'Info about person'
-}
+
+
+
 
 
 
