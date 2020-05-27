@@ -10,9 +10,9 @@
 // }
 //
 //
-// // greet('Lena')
-// // greet2('Cat')
-//
+// greet('Lena')
+// greet2('Cat')
+
 // 2 Анонимные функции
 // let counter = 0
 // const interval = setInterval(function() {
@@ -24,3 +24,18 @@
 // })
 
 // 3 Стрелочные функции
+
+function greet(name) {
+    console.log('Hello - ', name)
+}
+
+const arrow = (name) => {
+    console.log('Привет - ', name)
+}
+
+arrow('Alex')
+
+const arrow2 = name => console.log('Привет - ', name)
+
+arrow2('Maxim')
+
