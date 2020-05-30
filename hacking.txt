@@ -136,6 +136,25 @@
 
 
 
+Запускаем или перезапускаем mysql, если не будет запускать сделать стоп и опять старт
+
+# - brew services stop mysql
+# - brew services start mysql
+# - brew services restart mysql
+# - mysql -u root -p - входим внутрь MySQL
+# - show databases; - отобразится база данных
+# - \q - выход из базы данных
+
+# - brew services list - посмотреть сервисы
+# - brew services restart --all
+
+<?php. 
+phpinfo(); - проверка php
+
+
+
+
+
 Proxychains4
  
 # - proxychains4 open /Applications/Google\ Chrome.app
